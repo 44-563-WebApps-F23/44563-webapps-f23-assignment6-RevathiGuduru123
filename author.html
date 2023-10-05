@@ -16,14 +16,14 @@
 
     <h2>Getting input</h2>
 
-    <form id="authorGuessForm">
-        <label for="secretauthor">The hidden author name:</label>
-        <br>
-        <input type="password" id="secretauthor" name="secretauthor" value="Dickens" required>
-        <label for="guessauthor">Guess the author:</label>
-        <br>
-        <input type="text" id="guessauthor" name="guessauthor" required>
-        <input type="button" value="Check the guess" onclick="checkAuthor()">
+    <form>
+        <label for="auth_name">The hidden author name</label>
+        <input type="password" id="auth_name" name="auth_name" min="10" max="50" step="2" value="Dickens"> <br>
+
+        <label for="guess_auth">Guess the author</label>
+        <input type="text" id="guess_auth" name="guess_auth"> <br>
+
+        <input type="button" onclick="checkAuthor()" value="Check the guess">
     </form>
     <br>
     <div id="results">right/wrong</div>
