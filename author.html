@@ -17,42 +17,51 @@
     <h2>Getting input</h2>
 
     <form>
-        <label for="auth_name">The hidden author name</label>
-        <input type="password" id="auth_name" name="auth_name" min="10" max="50" step="2" value="Dickens"> <br>
-
-        <label for="guess_auth">Guess the author</label>
-        <input type="text" id="guess_auth" name="guess_auth"> <br>
-
-        <input type="button" onclick="checkAuthor()" value="Check the guess">
+        <div class="mb-3">
+            <label for="secretAuthor" class="form-label">The hidden author name:</label>
+            <input type="password" class="form-control" id="secretAuthor" name="secretAuthor" value="Dickens">
+        </div>
+        <div class="mb-3">
+            <label for="guessAuthor" class="form-label">Guess the author:</label>
+            <input type="text" class="form-control" id="guessAuthor" name="guessAuthor">
+        </div>
+        <button type="button" class="btn btn-primary" id="checkButton" onclick="checkAuthor()">Check the guess</button>
     </form>
-    <br>
-    <div id="results">right/wrong</div>
-    <br>
-    <script> 
-    let good = 0;
-    let oops = 0;
-    function checkAuthor ()
-    {
-        secret_author = document.getElementById("secretauthor").value;
-        guess_author = document.getElementById("guessauthor").value;
-        result = document.getElementById("results");
-        if (guess_author === secret_author) {
-            good ++;
-            alert("You got it right!"); 
-        }else{ 
+    <p class="mt-3" id="result">Good: 0 | Oops: 0</p>
+</div>
+
+<script>
+    var good = 0;
+    var oops = 0;
+    var attempts = 0;
+
+    function checkAuthor() {
+        var secretAuthor = document.getElementById("secretAuthor").value;
+        var guessAuthor = document.getElementById("guessAuthor").value;
+
+        attempts++;
+
+        if (secretAuthor === guessAuthor) {
+            good++;
+            alert("You got it right!");
+        } else {
             oops++;
-            if(oops > 7){
-                document.getElementById("display").onclick=bonusGuess();
-            }
             alert("Sorry");
         }
-        result.innerHTML= `Good count ${good}<br>Oops Count ${oops}`;
+
+        var resultElement = document.getElementById("result");
+        resultElement.innerHTML = "Good: " + good + " | Oops: " + oops;
+
+        // Check if 7 incorrect guesses have been made
+        if (oops >= 7) {
+            document.getElementById("checkButton").onclick = function () {
+                alert("Sorry, ran out of guesses.");
+            };
+        }
     }
-    function bonusGuess(){
-        alert("Sorry, you run out of guess");
-    }
-    </script>
-    <br>
+</script>
+
+
 
     
     <div id="imageContainer">
