@@ -7,43 +7,57 @@
 
 <h1>Guduru Revathi goes on a cruise</h1>
 <form>
-    <input type="checkbox" id="shared" name="shared" value="true">
-    <lable for="shared">Shares Cabin</lable><br>
+    <div class="col-lg-5">
+    <label class="col-lg-15 col-form-label form-control-label" for="days">Enter the number of days</label>
+    <input type="text" id="days" value="">
+</div>
+<div class="col-lg-5">
+    <label class="col-lg-6 col-form-label form-control-label" for="price">Enter price</label>
+    <input type="text" id="price" value="">
+</div>
+</br>
+    <input class="btn btn-outline-secondary" type="button" onclick="updateCruise()" value="Update the cruise">
 
-    <input type="checkbox" id="breakF" name="breakF" value="true">
-    <lable for="breakF">Breakfast</lable><br>
-
-    <input type="checkbox" id="PoolP" name="PoolP" value="false">
-    <lable for="PoolP">Pool Pass</lable><br>
-
-    <input type="button" value="Select a cruise" onclick="selectCruise()">
+    
 </form>
-<p id="resultCheck">This text will be replaced </p>
+</br>
+
+<p id="cruiseResult"></p>
+    </div>
 <script> 
-var  my_cruise={};
-function selectCruise(){
-    my_cruise={};
-  if(document.getElementById("shared").checked) {
-    my_cruise["shared"]=true;
-  }
-  else
-  my_cruise.shared=false;
 
-  if(document.getElementById("breakF").checked) {
-    my_cruise.breakfast=true;
-  }
-  else
-  my_cruise.breakfast=false;
+var my_cruise = {};
 
-  if(document.getElementById("PoolP").checked) {
-    my_cruise.pool=true;
-  }
-  else
-  my_cruise.pool=false;
-  
-  document.getElementById("resultCheck").innerHTML="{shared: " + my_cruise.shared + "; breakfast: "+my_cruise.breakfast+"; pool: "+my_cruise.pool+";}";
-}
+        function selectCruise() {
+            // Reset the cruise object
+            my_cruise = {};
 
+            // Get the checkbox elements
+            var sharesCabin = document.getElementById("sharesCabin");
+            var breakfast = document.getElementById("breakfast");
+            var poolPass = document.getElementById("poolPass");
+
+            // Set the properties of my_cruise based on checkbox selections
+            my_cruise.shared = sharesCabin.checked;
+            my_cruise.breakfast = breakfast.checked;
+            my_cruise.pool = poolPass.checked;
+
+            // Display the cruise selection in the result element
+            document.getElementById("cruiseResult").innerHTML = JSON.stringify(my_cruise);
+        }
+        
+        function updateCruise() {
+        // Get the values from the input elements
+        var daysValue = document.getElementById("days").value;
+        var priceValue = document.getElementById("price").value;
+
+        // Update the properties of my_cruise
+        my_cruise["days"] = daysValue;
+        my_cruise["price"] = priceValue;
+
+        // Display the updated my_cruise object
+        document.getElementById("cruiseResult").innerHTML = JSON.stringify(my_cruise);
+    }
 </script>
 
 </body>
